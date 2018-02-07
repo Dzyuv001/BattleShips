@@ -1,7 +1,6 @@
 package com.BattleShips;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
 
 public class ShipBoard {
@@ -21,11 +20,8 @@ public class ShipBoard {
         elemWidth = mainScreen.getWidth();
     }
 
-
-
     private void initBA(){ // sets up the battle ship area
         // setXY();
-        battleArea.setBackground(Color.GREEN);
         battleArea.setVisible(true);
         mainScreen.add(battleArea);
         placeElements();
@@ -44,7 +40,6 @@ public class ShipBoard {
         button.setPreferredSize(new Dimension(22,22));
         button.setBorder(BorderFactory.createLineBorder(Color.black));
         button.setVisible(true);
-
         return button;
     }
 
@@ -53,14 +48,11 @@ public class ShipBoard {
         for (int i = 0; i < Leters.length; i++) {
             battleArea.add(initLblLocation(Leters[i]));
         }
-
         for (int i = 0; i < 10; i++) {
             battleArea.add(initLblLocation((i+1)+""));
             for (int j = 0; j < 10; j++) {
                 battleArea.add(btnShipCoord[i][j] = initBattleShipCoord());
             }
         }
-        System.out.println("width is "+ battleArea.getWidth() + " and height is " + battleArea.getHeight());
     }
-
 }
