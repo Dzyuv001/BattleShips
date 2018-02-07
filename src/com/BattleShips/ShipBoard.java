@@ -3,7 +3,7 @@ package com.BattleShips;
 import javax.swing.*;
 import java.awt.*;
 
-public class ShipBoard {
+public abstract class ShipBoard {
     private JPanel mainScreen;
     private JPanel battleArea = new JPanel();
     private JButton btnShipCoord[][] = new JButton[10][10];
@@ -34,14 +34,7 @@ public class ShipBoard {
         return label;
     }
 
-    private JButton initBattleShipCoord(){ // sets up buttons
-        JButton button = new JButton();
-        button.setBackground(Color.BLUE);
-        button.setPreferredSize(new Dimension(22,22));
-        button.setBorder(BorderFactory.createLineBorder(Color.black));
-        button.setVisible(true);
-        return button;
-    }
+    public abstract JButton initBattleShipCoord();
 
     private void placeElements(){// used to place elements on the jframe
         String Leters[] = {" ", "A","B","C","D","E","F","G","H","I","J"};
@@ -55,4 +48,5 @@ public class ShipBoard {
             }
         }
     }
+
 }

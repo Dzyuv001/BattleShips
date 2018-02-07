@@ -7,7 +7,8 @@ import java.awt.event.ActionListener;
 public class MainScreen extends JFrame {
 
     JPanel mainScreen;
-    ShipBoard playedSide,enemySide;
+    EnemyBoard enemySide;
+    PlayerBoard playerSide;
 
     public MainScreen(){
         super("Battle Ships");
@@ -22,8 +23,9 @@ public class MainScreen extends JFrame {
     }
 
     private void initSide(){
-        enemySide = new ShipBoard(mainScreen);
-        playedSide = new ShipBoard(mainScreen);
+        playerSide = new PlayerBoard(mainScreen);
+        enemySide = new EnemyBoard(mainScreen);
+
     }
 
     public static void main(String args[]){
