@@ -6,13 +6,13 @@ import java.awt.*;
 
 public class ShipBoard {
     private JPanel mainScreen;
-    private JFrame battleArea = new JFrame();
+    private JPanel battleArea = new JPanel();
     private JButton btnShipCoord[][] = new JButton[10][10];
     private JLabel lblLocation[] = new JLabel[21];
     private int elemHight, elemWidth;
 
     public ShipBoard(JPanel ms){
-        ms = mainScreen;
+        mainScreen = ms;
         initBA();
     }
 
@@ -25,7 +25,7 @@ public class ShipBoard {
 
     private void initBA(){ // sets up the battle ship area
         // setXY();
-        battleArea.setBackground(Color.BLACK);
+        battleArea.setBackground(Color.GREEN);
         battleArea.setVisible(true);
         mainScreen.add(battleArea);
         placeElements();
@@ -33,7 +33,7 @@ public class ShipBoard {
 
     private JLabel initLblLocation(String name){ // sets up labels
         JLabel label = new JLabel(name,SwingConstants.CENTER);
-        label.setPreferredSize(new Dimension(battleArea.getWidth()/12,battleArea.getHeight()/12));
+        label.setPreferredSize(new Dimension(22,22));
         label.setVisible(true);
         return label;
     }
@@ -41,7 +41,7 @@ public class ShipBoard {
     private JButton initBattleShipCoord(){ // sets up buttons
         JButton button = new JButton();
         button.setBackground(Color.BLUE);
-        button.setPreferredSize(new Dimension(battleArea.getWidth()/12,battleArea.getHeight()/12));
+        button.setPreferredSize(new Dimension(22,22));
         button.setBorder(BorderFactory.createLineBorder(Color.black));
         button.setVisible(true);
 
@@ -55,13 +55,12 @@ public class ShipBoard {
         }
 
         for (int i = 0; i < 10; i++) {
-            if(i == 0 || (i % 10 == 0)){
-                battleArea.add(initLblLocation(i+""));
-            }
+            battleArea.add(initLblLocation((i+1)+""));
             for (int j = 0; j < 10; j++) {
-                battleArea.add(initBattleShipCoord());
+                battleArea.add(btnShipCoord[i][j] = initBattleShipCoord());
             }
         }
+        System.out.println("width is "+ battleArea.getWidth() + " and height is " + battleArea.getHeight());
     }
 
 }
