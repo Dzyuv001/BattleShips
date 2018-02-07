@@ -21,6 +21,8 @@ public class MainScreen extends JFrame {
         setVisible(true);
         initSide();
 
+        System.out.print("this is a change that will let me commit to git");
+
 
     }
 
