@@ -7,6 +7,12 @@ public class EnemyBoard extends ShipBoard {
     public EnemyBoard(JPanel ms) {
         super(ms);
     }
+
+    @Override
+    public String titleText() {
+        return "Enemy area";
+    }
+
     @Override
     public JButton initBattleShipCoord(){ // sets up buttons
         JButton button = new JButton();

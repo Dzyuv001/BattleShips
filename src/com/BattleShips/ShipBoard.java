@@ -1,6 +1,7 @@
 package com.BattleShips;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 
 public abstract class ShipBoard {
@@ -9,11 +10,21 @@ public abstract class ShipBoard {
     private JButton btnShipCoord[][] = new JButton[10][10];
     private JLabel lblLocation[] = new JLabel[21];
     private int elemHight, elemWidth;
+    private JLabel lblAreaTitle= new JLabel("",SwingConstants.CENTER);
 
     public ShipBoard(JPanel ms){
         mainScreen = ms;
         initBA();
     }
+
+    private void initTitle(){
+        lblAreaTitle.setPreferredSize(new Dimension((int)(elemWidth*0.6),20));
+        lblAreaTitle.setText(titleText());
+        lblAreaTitle.doLayout();
+        battleArea.add(lblAreaTitle);
+    }
+
+    public abstract String titleText();
 
     private void setXY(){ // Gets main JFrame's height and width
         elemHight = mainScreen.getHeight();
@@ -21,9 +32,10 @@ public abstract class ShipBoard {
     }
 
     private void initBA(){ // sets up the battle ship area
-        // setXY();
+        setXY();
         battleArea.setVisible(true);
         mainScreen.add(battleArea);
+        initTitle();
         placeElements();
     }
 
@@ -47,6 +59,7 @@ public abstract class ShipBoard {
                 battleArea.add(btnShipCoord[i][j] = initBattleShipCoord());
             }
         }
+        System.out.println("main screen size " +mainScreen.getWidth());
     }
 
 }

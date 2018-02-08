@@ -5,10 +5,15 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class PlayerBoard extends ShipBoard implements KeyListener,MouseListener {
-    private int GameState=0;
+    private int gameState=0;
 
     public PlayerBoard(JPanel ms) {
         super(ms);
+    }
+
+    @Override
+    public String titleText() {
+        return "Player area";
     }
 
     @Override
@@ -29,6 +34,14 @@ public class PlayerBoard extends ShipBoard implements KeyListener,MouseListener 
 
     @Override
     public void mouseEntered(MouseEvent e) {
+        switch (gameState){
+            case 0: // game is being set up
+            break;
+            case 1:
+            default:
+                break;
+
+        }
         ((JButton)e.getSource()).setBackground(Color.blue);
     }
 

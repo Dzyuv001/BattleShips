@@ -17,6 +17,8 @@ public class MainScreen extends JFrame {
         this.mainScreen.setLayout(new GridLayout(1,0));
         add(mainScreen, BorderLayout.CENTER);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        this.pack();
         setSize(500, 500);
         setVisible(true);
         initSide();
