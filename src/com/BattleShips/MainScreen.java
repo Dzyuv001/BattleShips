@@ -9,12 +9,13 @@ public class MainScreen extends JFrame {
     JPanel mainScreen;
     EnemyBoard enemySide;
     PlayerBoard playerSide;
+    ShipPlacement shipPlacement;
 
     public MainScreen(){
         super("Battle Ships");
         setLayout(new BorderLayout());
         this.mainScreen = new JPanel();
-        this.mainScreen.setLayout(new GridLayout(1,0));
+        this.mainScreen.setLayout(new GridLayout(2,0));
         add(mainScreen, BorderLayout.CENTER);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -27,7 +28,7 @@ public class MainScreen extends JFrame {
     private void initSide(){
         playerSide = new PlayerBoard(mainScreen);
         enemySide = new EnemyBoard(mainScreen);
-
+        shipPlacement = new ShipPlacement(mainScreen);
     }
 
     public static void main(String args[]){
