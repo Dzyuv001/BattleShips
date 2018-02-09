@@ -8,6 +8,7 @@ public abstract class ShipBoard {
     private JPanel mainScreen;
     private JPanel battleArea = new JPanel();
     private JButton btnShipCoord[][] = new JButton[10][10];
+    private String locations[][] = new String[10][10];
     private JLabel lblLocation[] = new JLabel[21];
     private int elemHight, elemWidth;
     private JLabel lblAreaTitle= new JLabel("",SwingConstants.CENTER);
