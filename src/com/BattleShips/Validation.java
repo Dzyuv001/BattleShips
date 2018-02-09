@@ -64,43 +64,45 @@ public class Validation { // class will be used to validate inputs
         return true;
     }
 
-
     boolean isClearAround( int x, int y){
+        //:TODO: clean this up
         int coords[][];
-        if (shipArea[y][x] == null){
-            if ((y==0 && x==0)){
-                coords = new int[][]{{0, 1}, {1, 1}, {1, 0}};
-            }
-            if (y==10 && x==0) {
-                coords = new int[][]{{9, 0}, {9, 1}, {10, 1}};
-            }
-            if(y==10 && x==10){
-                coords = new int[][]{{9, 9}, {9, 10}, {10, 9}};
-            }
-            if(y==0 && x==10){
-                coords = new int[][]{{0, 9}, {1,9}, {1, 10}};
-            }
-            if(x==10){
-                coords = new int[][]{{0, 9}, {1,9}, {1, 10}};
-            }
-            if(x==0){
-                coords = new int[][]{{0, 9}, {1,9}, {1, 10}};
-            }
-            if(y==10){
-                coords = new int[][]{{0, 9}, {1,9}, {1, 10}};
-            }
-            if(y==0){
-                coords = new int[][]{{0, 9}, {1,9}, {1, 10}};
-            }
-            if(){
+        if (shipArea[y][x] == null) {
+            if (){
+                if ((y == 0 && x == 0)) {
+                    coords = new int[][]{{0, 1}, {1, 1}, {1, 0}};
+                }
+                if (y == 10 && x == 0) {
+                    coords = new int[][]{{9, 0}, {9, 1}, {10, 1}};
+                }
+                if (y == 10 && x == 10) {
+                    coords = new int[][]{{9, 9}, {9, 10}, {10, 9}};
+                }
+                if (y == 0 && x == 10) {
+                    coords = new int[][]{{0, 9}, {1, 9}, {1, 10}};
+                }
+                if (x == 10) {
+                    coords = new int[][]{{0, 9}, {1, 9}, {1, 10}};
+                }
+                if (x == 0) {
+                    coords = new int[][]{{0, 9}, {1, 9}, {1, 10}};
+                }
+                if (y == 10) {
+                    coords = new int[][]{{0, 9}, {1, 9}, {1, 10}};
+                }
+                if (y == 0) {
+                    coords = new int[][]{{0, 9}, {1, 9}, {1, 10}};
+                }
+            }else{
                 coords = new int[][]{{y,x-1}, {y-1,x-1}, {y-1, x}, {y-1,x+1},{y,x+1},{y+1,x+1},{y+1,x},{y+1,x-1}};
             }
             for (int i = 0; i < coords.length-1; i++) {
-
+                if(!(shipArea[coords[i][0]][coords[i][1]] == null )){
+                    return false;
+                }
             }
-
+            return true;
         }
-        return false;
     }
 
 
