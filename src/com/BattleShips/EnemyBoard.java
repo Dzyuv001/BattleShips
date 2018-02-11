@@ -4,8 +4,9 @@ import javax.swing.*;
 import java.awt.*;
 
 public class EnemyBoard extends ShipBoard {
-    public EnemyBoard(JPanel ms) {
-        super(ms);
+
+    public EnemyBoard(JPanel mainScreen) {
+        super();
     }
 
     @Override

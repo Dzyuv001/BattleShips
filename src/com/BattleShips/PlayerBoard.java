@@ -7,9 +7,14 @@ import java.awt.event.*;
 public class PlayerBoard extends ShipBoard implements KeyListener,MouseListener {
     private int gameState=0;
 
-    public PlayerBoard(JPanel ms) {
-        super(ms);
+    private int rotation=0; // stores the rotation of the ship
+
+    public PlayerBoard(JPanel mainScreen) {
+        super();
     }
+
+    // private Validation valid;
+    // private List<Ship> ship;
 
     @Override
     public String titleText() {
@@ -36,13 +41,16 @@ public class PlayerBoard extends ShipBoard implements KeyListener,MouseListener 
     public void mouseEntered(MouseEvent e) {
         switch (gameState){
             case 0: // game is being set up
-            break;
+                if (valid.isPlaceable(gameState,5,locations,((JButton)e.getSource()).getParent().getX(),((JButton)e.getSource()).getParent().getY())){
+                    ((JButton)e.getSource()).setBackground(Color.blue);
+                }else {
+                    ((JButton)e.getSource()).setBackground(Color.blue);
+                }
+                break;
             case 1:
             default:
                 break;
-
         }
-        ((JButton)e.getSource()).setBackground(Color.blue);
     }
 
     @Override

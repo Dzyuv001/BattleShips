@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.List;
 
 
 public class ShipPlacement implements MouseListener {
@@ -12,8 +13,6 @@ public class ShipPlacement implements MouseListener {
     private JPanel mainScreen;
     private JButton selected;
     private JPanel shipArea = new JPanel();
-    private Validation valid;
-
 
     public ShipPlacement(JPanel ms){
         mainScreen = ms;
@@ -37,7 +36,6 @@ public class ShipPlacement implements MouseListener {
         int lengths[] = {4,3,3,2,2,2,1,1,1,1};
         for (int i = 0; i < lengths.length; i++) {
             ships[i] = new JButton(lengths[i] + " Long");
-            // ships[i].setText(lengths[i] + " Long");
             ships[i].setPreferredSize(new Dimension(60*lengths[i],20));
             shipArea.add(ships[i]);
             ships[i].addMouseListener(this);
@@ -47,7 +45,6 @@ public class ShipPlacement implements MouseListener {
     @Override
     public void mouseClicked(MouseEvent e) {
         selected = ((JButton)e.getSource());
-        System.out.println("dis works " + selected.getWidth()/60);
     }
 
     @Override
