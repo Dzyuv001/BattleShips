@@ -5,8 +5,8 @@ import java.awt.*;
 
 public class EnemyBoard extends ShipBoard {
 
-    public EnemyBoard(JPanel mainScreen) {
-        super();
+    public EnemyBoard(JPanel ms) {
+        super(ms);
     }
 
     @Override

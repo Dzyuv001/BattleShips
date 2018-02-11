@@ -2,19 +2,17 @@ package com.BattleShips;
 
 import javax.swing.*;
 
-public class Coordinate {
+public class Coordinate extends JButton{
     int x,y;
-    JButton button;
+    JButton btn;
     String state;
 
-   public Coordinate(int x, int y, JButton button, String state){
+   public Coordinate(int x, int y,JButton btn, String state){
        this.x = x;
        this.y = y;
-       this.button = button;
+       this.btn = btn;
        this.state = state;
     }
-
-    public int getX(){ return x; }
-
-    public int getY(){ return y; }
+    public int getCoordX(){ return x; }
+    public int getCoordY(){ return y; }
 }

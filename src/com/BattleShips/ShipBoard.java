@@ -17,6 +17,11 @@ public abstract class ShipBoard {
     Validation valid;
     private List<Ship> ship;
 
+    public ShipBoard(JPanel ms){
+        mainScreen = ms;
+        initBA();
+    }
+
     private void initTitle(){
         lblAreaTitle.setPreferredSize(new Dimension((int)(elemWidth*0.6),20));
         lblAreaTitle.setText(titleText());
@@ -57,9 +62,8 @@ public abstract class ShipBoard {
             battleArea.add(initLblLocation((i+1)+""));
             for (int j = 0; j < 10; j++) {
                 coord[i][j] = new Coordinate(i,j,initBattleShipCoord(),"n");
-                battleArea.add(coord[i][j].button);
+                battleArea.add(coord[i][j].btn);
             }
         }
-        System.out.println("main screen size " +mainScreen.getWidth());
     }
 }
