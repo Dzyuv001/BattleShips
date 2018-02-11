@@ -2,108 +2,63 @@ package com.BattleShips;
 
 public class Validation { // class will be used to validate inputs
     private String shipArea[][];
+    private int minX=0,maxX=0,minY=0,maxY=0;
 
-    boolean isplaceable(int rota,int shipLength, String[][] shipGrid, int x, int y){
+    boolean isPlaceable(int rota,int shipLength, String[][] shipGrid, int x, int y){// false is unplaceable , true is placeable
         shipArea = shipGrid;
         switch (rota){
             case 0:
-                if (isClearAround(x,y)){
-                    if (shipLength == 1){
-                        return true;
-                    }else {
-                        for (int i = 1; i < shipLength-1; i++) {
-                            if(!isClearAround(x,y-shipLength)){
-                                return false;
-                            }
-                        }
-                    }
-                }
+                minX = x -1;
+                minY = y-(shipLength+1);
+                maxX = x+1;
+                maxY = y+1;
                 break;
             case 1:
-                if (isClearAround(x,y)){
-                    if (shipLength == 1){
-                        return true;
-                    }else {
-                        for (int i = 1; i < shipLength-1; i++) {
-                            if(!isClearAround(x+shipLength,y)){
-                                return false;
-                            }
-                        }
-                    }
-                }
+                minX = x-1;
+                minY = y-1;
+                maxX = x+(shipLength+1);
+                maxY = y+1;
                 break;
             case 2:
-                if (isClearAround(x,y+shipLength)){
-                    if (shipLength == 1){
-                        return true;
-                    }else {
-                        for (int i = 1; i < shipLength-1; i++) {
-                            if(!isClearAround(x,y-shipLength)){
-                                return false;
-                            }
-                        }
-                    }
-                }
+                minX = x-1;
+                minY = y-1;
+                maxX = x+1;
+                maxY = y+(shipLength+1);
                 break;
             case 3:
-                if (isClearAround(x+shipLength,y)){
-                    if (shipLength == 1){
-                        return true;
-                    }else {
-                        for (int i = 1; i < shipLength-1; i++) {
-                            if(!isClearAround(x,y-shipLength)){
-                                return false;
-                            }
-                        }
-                    }
-                }
+                minX = x-(shipLength+1);
+                minY = y-1;
+                maxX = x+1;
+                maxY = y+1;
                 break;
             default:
                 break;
         }
+        if ((minX > -1) || (minY > -1) || (maxX < 11) || (maxY < 11)){
+            return false;
+        }
+        cleaner();
+        if (!isClear()){
+            return false;
+        }
         return true;
     }
 
-    boolean isClearAround( int x, int y){
-        //:TODO: clean this up
-        int coords[][];
-        if (shipArea[y][x] == null) {
-            if (){
-                if ((y == 0 && x == 0)) {
-                    coords = new int[][]{{0, 1}, {1, 1}, {1, 0}};
-                }
-                if (y == 10 && x == 0) {
-                    coords = new int[][]{{9, 0}, {9, 1}, {10, 1}};
-                }
-                if (y == 10 && x == 10) {
-                    coords = new int[][]{{9, 9}, {9, 10}, {10, 9}};
-                }
-                if (y == 0 && x == 10) {
-                    coords = new int[][]{{0, 9}, {1, 9}, {1, 10}};
-                }
-                if (x == 10) {
-                    coords = new int[][]{{0, 9}, {1, 9}, {1, 10}};
-                }
-                if (x == 0) {
-                    coords = new int[][]{{0, 9}, {1, 9}, {1, 10}};
-                }
-                if (y == 10) {
-                    coords = new int[][]{{0, 9}, {1, 9}, {1, 10}};
-                }
-                if (y == 0) {
-                    coords = new int[][]{{0, 9}, {1, 9}, {1, 10}};
-                }
-            }else{
-                coords = new int[][]{{y,x-1}, {y-1,x-1}, {y-1, x}, {y-1,x+1},{y,x+1},{y+1,x+1},{y+1,x},{y+1,x-1}};
-            }
-            for (int i = 0; i < coords.length-1; i++) {
-                if(!(shipArea[coords[i][0]][coords[i][1]] == null )){
+    private void cleaner(){ //removes coordinates that don't need to to be check or will crash the program
+        if(minX==-1)minX=0;
+        if(minY==-1)minY=0;
+        if(maxX==11)maxX=10;
+        if(maxY==11)maxY=10;
+    }
+
+    private boolean isClear(){// loop though every coordiate and check if its taken
+        for (int i = minY; i < maxY; i++) {
+            for (int j = minX; j < maxX; j++) {
+                if(shipArea[i][j] != null){
                     return false;
                 }
             }
-            return true;
         }
+        return true;
     }
-
-
 }
