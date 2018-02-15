@@ -22,12 +22,14 @@ public class PlayerBoard extends ShipBoard implements KeyListener,MouseListener 
         ((JButton)e.getSource()).setBackground(Color.GREEN);
         System.out.println("the button was clicked");
     }
-    private void preview(int length ,int x , int y){
+
+    private void preview(int length ,int y , int x){
         int min=0,max=0;
         switch (rotation){
             case 0:
-                for (int i = x; i < length+x ; i++) {
-                    currentShips.add(coord[y][x]);
+                for (int i = y-length; i <= y ; i++) {
+                    System.out.println(i);
+                    currentShips.add(coord[i][x]);
                 }
                 break;
             case 1:
@@ -40,6 +42,7 @@ public class PlayerBoard extends ShipBoard implements KeyListener,MouseListener 
                 break;
         }
         for (Coordinate co :currentShips) co.setBackground(Color.BLUE);
+        System.out.println(currentShips.size());
     }
 
     private  void undoPreview(){
@@ -58,7 +61,7 @@ public class PlayerBoard extends ShipBoard implements KeyListener,MouseListener 
         }
         for (Coordinate co :currentShips) {
             co.setBackground(Color.LIGHT_GRAY);
-        System.out.println("The coorids are " + co.getCoordY() + " and " + co.getCoordX());
+            System.out.println("The coorids are " + co.getCoordY() + " and " + co.getCoordX());
         }
         currentShips.removeAll(currentShips);
     }
@@ -76,15 +79,13 @@ public class PlayerBoard extends ShipBoard implements KeyListener,MouseListener 
     @Override
     public void mouseEntered(MouseEvent e) {
         int gameState = 0;
-        boolean shipSelected = false;
+        int shipLength =  super.mainScreen.shipPlacement.getSelectedShipLength();
+        int x=((Coordinate)e.getSource()).getCoordX(),y=((Coordinate)e.getSource()).getCoordY();
         switch (gameState) {
             case 0: // game is being set up
-                String testin[][] = new String[10][10];
-                testin[0][0] = "hello";
                 if (super.mainScreen.shipPlacement.isShipSelected()) {
-                    if (valid.isPlaceable(rotation, super.mainScreen.shipPlacement.getSelectedShipLength(),getBoard(), ((Coordinate) e.getSource()).getCoordY(), ((Coordinate) e.getSource()).getCoordX())) {
-                        preview(super.mainScreen.shipPlacement.getSelectedShipLength(),((Coordinate) e.getSource()).getCoordY(),((Coordinate) e.getSource()).getCoordX());
-                       // ((Coordinate) e.getSource()).setBackground(Color.blue);
+                    if (valid.isPlaceable(rotation,shipLength,getBoard(),y,x)) {
+                        preview(shipLength,y,x);
                     } else {
                         ((Coordinate) e.getSource()).setBackground(Color.red);
                     }
@@ -99,7 +100,8 @@ public class PlayerBoard extends ShipBoard implements KeyListener,MouseListener 
 
     @Override
     public void mouseExited(MouseEvent e) {
-        ((JButton)e.getSource()).setBackground(Color.LIGHT_GRAY);
+        for (Coordinate co :currentShips) co.setBackground(Color.lightGray);
+        currentShips.removeAll(currentShips);
     }
 
     @Override

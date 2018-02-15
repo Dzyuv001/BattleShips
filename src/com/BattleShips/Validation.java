@@ -35,30 +35,30 @@ public class Validation { // class will be used to validate inputs
             default:
                 break;
         }
-        if (!((minX > -1) || (minY > -1) || (maxX <= 10) || (maxY <= 10))){
-            System.out.println("x is "+x+" y is "+y+" minX "+minX+" minY "+minY+" maxX "+maxX+" maxY "+maxY);
+        if ((minX < -1) || (minY < -1) || (maxX > 10) || (maxY > 10)){
             return false;
         }
         cleaner();
         if (!isClear()){
             return false;
         }
+        System.out.println("x is "+x+" y is "+y+" minX "+minX+" minY "+minY+" maxX "+maxX+" maxY "+maxY);
         return true;
     }
 
     private void cleaner(){ //removes coordinates that don't need to to be check or will crash the program
-        System.out.println("this ran too");
+        System.out.println(" minX "+minX+" minY "+minY+" maxX "+maxX+" maxY "+maxY);
         if(minX==-1)minX=0;
         if(minY==-1)minY=0;
         if(maxX==10)maxX=9;
         if(maxY==10)maxY=9;
+        System.out.println(" minX "+minX+" minY "+minY+" maxX "+maxX+" maxY "+maxY);
     }
 
     private boolean isClear(){// loop though every coordiate and check if its taken
         System.out.println("new");
         for (int i = minY; i < maxY; i++) {
             for (int j = minX; j < maxX; j++) {
-                System.out.println("i is "+ i +" "+"j is "+ j+"");
                 if(shipArea[i][j] != "n"){
                     return false;
                 }

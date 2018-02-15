@@ -45,7 +45,6 @@ public abstract class ShipBoard extends JPanel {
     private void initBA(){ // sets up the battle ship area
         setXY();
         this.setVisible(true);
-       // mainScreen.getMS().add(this);
         mainScreen.getMS().add(this);
         initTitle();
         placeElements();
