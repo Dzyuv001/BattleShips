@@ -4,7 +4,7 @@ public class Validation { // class will be used to validate inputs
     private String shipArea[][];
     private int minX=0,maxX=0,minY=0,maxY=0;
 
-    boolean isPlaceable(int rota,int shipLength, String[][] shipGrid, int x, int y){// false is unplaceable , true is placeable
+    boolean isPlaceable(int rota,int shipLength, String[][] shipGrid, int y, int x){// false is unplaceable , true is placeable
         shipArea = shipGrid;
         switch (rota){
             case 0:
@@ -12,6 +12,7 @@ public class Validation { // class will be used to validate inputs
                 minY = y-(shipLength+1);
                 maxX = x+1;
                 maxY = y+1;
+                System.out.println("this ran" );
                 break;
             case 1:
                 minX = x-1;
@@ -34,7 +35,8 @@ public class Validation { // class will be used to validate inputs
             default:
                 break;
         }
-        if ((minX > -1) || (minY > -1) || (maxX < 11) || (maxY < 11)){
+        if (!((minX > -1) || (minY > -1) || (maxX <= 10) || (maxY <= 10))){
+            System.out.println("x is "+x+" y is "+y+" minX "+minX+" minY "+minY+" maxX "+maxX+" maxY "+maxY);
             return false;
         }
         cleaner();
@@ -45,16 +47,19 @@ public class Validation { // class will be used to validate inputs
     }
 
     private void cleaner(){ //removes coordinates that don't need to to be check or will crash the program
+        System.out.println("this ran too");
         if(minX==-1)minX=0;
         if(minY==-1)minY=0;
-        if(maxX==11)maxX=10;
-        if(maxY==11)maxY=10;
+        if(maxX==10)maxX=9;
+        if(maxY==10)maxY=9;
     }
 
     private boolean isClear(){// loop though every coordiate and check if its taken
+        System.out.println("new");
         for (int i = minY; i < maxY; i++) {
             for (int j = minX; j < maxX; j++) {
-                if(shipArea[i][j] != null){
+                System.out.println("i is "+ i +" "+"j is "+ j+"");
+                if(shipArea[i][j] != "n"){
                     return false;
                 }
             }

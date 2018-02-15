@@ -4,20 +4,16 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.List;
 
-public abstract class ShipBoard {
-    private JPanel mainScreen;
-    private JPanel battleArea = new JPanel();
-    private JButton btnShipCoord[][] = new JButton[10][10];
-    String locations[][] = new String[10][10];
-    private JLabel lblLocation[] = new JLabel[21];
+public abstract class ShipBoard extends JPanel {
+    MainScreen mainScreen;
     private int elemHight, elemWidth;
     private JLabel lblAreaTitle= new JLabel("",SwingConstants.CENTER);
 
-    private Coordinate coord[][] = new Coordinate[10][10];
-    Validation valid;
+    public Coordinate[][] coord = new Coordinate[10][10];
+    public Validation valid = new Validation();
     private List<Ship> ship;
 
-    public ShipBoard(JPanel ms){
+    public ShipBoard(MainScreen ms){
         mainScreen = ms;
         initBA();
     }
@@ -26,7 +22,7 @@ public abstract class ShipBoard {
         lblAreaTitle.setPreferredSize(new Dimension((int)(elemWidth*0.6),20));
         lblAreaTitle.setText(titleText());
         lblAreaTitle.doLayout();
-        battleArea.add(lblAreaTitle);
+        this.add(lblAreaTitle);
     }
 
     public abstract String titleText();
@@ -36,10 +32,21 @@ public abstract class ShipBoard {
         elemWidth = mainScreen.getWidth();
     }
 
+    public String[][] getBoard(){
+        String stringArray[][] = new String[10][10];
+        for (int i = 0; i < 10; i++) {
+            for (int j = 0; j < 10; j++) {
+                stringArray[i][j] = coord[i][j].getState();
+            }
+        }
+        return stringArray;
+    }
+
     private void initBA(){ // sets up the battle ship area
         setXY();
-        battleArea.setVisible(true);
-        mainScreen.add(battleArea);
+        this.setVisible(true);
+       // mainScreen.getMS().add(this);
+        mainScreen.getMS().add(this);
         initTitle();
         placeElements();
     }
@@ -51,18 +58,18 @@ public abstract class ShipBoard {
         return label;
     }
 
-    public abstract JButton initBattleShipCoord();
+    public abstract Coordinate initBattleShipCoord(int x,int y);
 
     private void placeElements(){// used to place elements on the jframe
-        String Leters[] = {" ", "A","B","C","D","E","F","G","H","I","J"};
-        for (int i = 0; i < Leters.length; i++) {
-            battleArea.add(initLblLocation(Leters[i]));
+        String leters[] = {" ", "A","B","C","D","E","F","G","H","I","J"};
+        for (int i = 0; i < leters.length; i++) {
+            this.add(initLblLocation(leters[i]));
         }
         for (int i = 0; i < 10; i++) {
-            battleArea.add(initLblLocation((i+1)+""));
+            this.add(initLblLocation((i + 1) + ""));
             for (int j = 0; j < 10; j++) {
-                coord[i][j] = new Coordinate(i,j,initBattleShipCoord(),"n");
-                battleArea.add(coord[i][j].btn);
+                coord[i][j] = initBattleShipCoord(i, j);
+                this.add(coord[i][j]);
             }
         }
     }

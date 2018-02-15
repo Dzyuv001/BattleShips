@@ -10,18 +10,19 @@ import java.util.List;
 public class ShipPlacement implements MouseListener {
     private JLabel lblAreaTitle= new JLabel("",SwingConstants.CENTER);
     private JButton ships[] = new JButton[10];
-    private JPanel mainScreen;
-    private JButton selected;
+    private MainScreen mainScreen;
+    private JButton selectedShip;
     private JPanel shipArea = new JPanel();
 
-    public ShipPlacement(JPanel ms){
+    public ShipPlacement(MainScreen ms){
         mainScreen = ms;
-        mainScreen.add(shipArea);
+        mainScreen.getMS().add(shipArea);
         initTitle();
         initShips();
     }
 
     private void initTitle(){
+
         lblAreaTitle.setPreferredSize(new Dimension((int)(mainScreen.getWidth()*0.6),20));
         lblAreaTitle.setText("Place your ships");
         lblAreaTitle.doLayout();
@@ -42,9 +43,17 @@ public class ShipPlacement implements MouseListener {
         }
     }
 
+    public  boolean isShipSelected(){
+        return selectedShip != null;
+    }
+
+     public int getSelectedShipLength() {
+        return (selectedShip.getWidth()/60)-1;
+    }
+
     @Override
     public void mouseClicked(MouseEvent e) {
-        selected = ((JButton)e.getSource());
+        selectedShip = ((JButton)e.getSource());
     }
 
     @Override

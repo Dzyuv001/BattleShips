@@ -2,11 +2,9 @@ package com.BattleShips;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionListener;
 
 public class MainScreen extends JFrame {
-
-    JPanel mainScreen;
+    private JPanel ms;
     EnemyBoard enemySide;
     PlayerBoard playerSide;
     ShipPlacement shipPlacement;
@@ -14,24 +12,26 @@ public class MainScreen extends JFrame {
     public MainScreen(){
         super("Battle Ships");
         setLayout(new BorderLayout());
-        this.mainScreen = new JPanel();
-        this.mainScreen.setLayout(new GridLayout(2,0));
-        add(mainScreen, BorderLayout.CENTER);
+        this.ms = new JPanel();
+        this.ms.setLayout(new GridLayout(2,0));
+        add(ms, BorderLayout.CENTER);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         this.pack();
-        setSize(500, 500);
+        setSize(700, 700);
         setVisible(true);
         initSide();
     }
 
+    public JPanel getMS(){ return ms; }
+
+    public ShipPlacement getShipPlacement() { return shipPlacement; }
+
     private void initSide(){
-        playerSide = new PlayerBoard(mainScreen);
-        enemySide = new EnemyBoard(mainScreen);
-        shipPlacement = new ShipPlacement(mainScreen);
+        playerSide = new PlayerBoard(this);
+        enemySide = new EnemyBoard(this);
+        shipPlacement = new ShipPlacement(this);
     }
 
-    public static void main(String args[]){
-        MainScreen mainScreen  = new MainScreen();
-    }
+    public static void main(String args[]){ MainScreen mainScreen  = new MainScreen(); }
 }

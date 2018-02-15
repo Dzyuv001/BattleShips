@@ -5,7 +5,7 @@ import java.awt.*;
 
 public class EnemyBoard extends ShipBoard {
 
-    public EnemyBoard(JPanel ms) {
+    public EnemyBoard(MainScreen ms) {
         super(ms);
     }
 
@@ -15,13 +15,13 @@ public class EnemyBoard extends ShipBoard {
     }
 
     @Override
-    public JButton initBattleShipCoord(){ // sets up buttons
-        JButton button = new JButton();
-        button.setBackground(Color.LIGHT_GRAY);
-        button.setPreferredSize(new Dimension(22,22));
-        button.setBorder(BorderFactory.createLineBorder(Color.black));
-        button.setVisible(true);
-        return button;
+    public Coordinate initBattleShipCoord(int x,int y){ // sets up buttons
+        Coordinate coord = new Coordinate(x,y,"n");
+        coord.setBackground(Color.LIGHT_GRAY);
+        coord.setPreferredSize(new Dimension(22,22));
+        coord.setBorder(BorderFactory.createLineBorder(Color.black));
+        coord.setVisible(true);
+        return coord;
     }
 
 }
