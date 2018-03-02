@@ -12,7 +12,6 @@ public class Validation { // class will be used to validate inputs
                 minY = y-(shipLength+1);
                 maxX = x+1;
                 maxY = y+1;
-                System.out.println("this ran" );
                 break;
             case 1:
                 minX = x-1;
@@ -42,21 +41,17 @@ public class Validation { // class will be used to validate inputs
         if (!isClear()){
             return false;
         }
-        System.out.println("x is "+x+" y is "+y+" minX "+minX+" minY "+minY+" maxX "+maxX+" maxY "+maxY);
         return true;
     }
 
     private void cleaner(){ //removes coordinates that don't need to to be check or will crash the program
-        System.out.println(" minX "+minX+" minY "+minY+" maxX "+maxX+" maxY "+maxY);
-        if(minX==-1)minX=0;
+       if(minX==-1)minX=0;
         if(minY==-1)minY=0;
         if(maxX==10)maxX=9;
         if(maxY==10)maxY=9;
-        System.out.println(" minX "+minX+" minY "+minY+" maxX "+maxX+" maxY "+maxY);
     }
 
     private boolean isClear(){// loop though every coordiate and check if its taken
-        System.out.println("new");
         for (int i = minY; i < maxY; i++) {
             for (int j = minX; j < maxX; j++) {
                 if(shipArea[i][j] != "n"){

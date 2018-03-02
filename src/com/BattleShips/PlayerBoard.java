@@ -4,14 +4,60 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 
-public class PlayerBoard extends ShipBoard implements KeyListener,MouseListener {
-    private int rotation=0; // stores the rotation of the ship
+public class PlayerBoard extends ShipBoard implements MouseListener {
+    private int rotation=3; // stores the rotation of the ship
     private ArrayList<Coordinate> currentShips = new ArrayList<>();
+    private MouseEvent mouse;
 
     public PlayerBoard(MainScreen ms) {
         super(ms);
+        setFocusable(true);
+        addKeyBinding(this,KeyEvent.VK_E,"clockwise", (eve) -> {
+            roation(1);
+            System.out.print("turned turned right " + rotation);
+        });
+        addKeyBinding(this,KeyEvent.VK_Q,"anticlockwise", (eve) -> {
+
+            roation(-1);
+            System.out.print("turned left " + rotation);
+        });
+    }
+
+    private void addKeyBinding(JComponent comp, int keyCode, String id, ActionListener act){
+        InputMap im = this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
+        ActionMap ap = this.getActionMap();
+        im.put(KeyStroke.getKeyStroke(keyCode,0,true),id);
+        ap.put(id, new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                act.actionPerformed(e);
+                System.out.println("hello world");
+            }
+        });
+    }
+
+    private void roation(int rot){// changes the rotation value
+        System.out.println(rot);
+        if (rot==1){
+            if (rotation==3){
+                rotation=0;
+            }else {
+                rotation+=rot;
+            }
+        }else {
+            if (rotation==0){
+                rotation=3;
+            }else {
+                rotation+=rot;
+            }
+        }
+        placeable();
+    }
+
+    private void clearPreview(){
+        for (Coordinate co :currentShips) co.setBackground(Color.lightGray);
+        currentShips.removeAll(currentShips);
     }
 
     @Override
@@ -24,25 +70,33 @@ public class PlayerBoard extends ShipBoard implements KeyListener,MouseListener 
     }
 
     private void preview(int length ,int y , int x){
+        clearPreview();
         int min=0,max=0;
         switch (rotation){
             case 0:
                 for (int i = y-length; i <= y ; i++) {
-                    System.out.println(i);
                     currentShips.add(coord[i][x]);
                 }
                 break;
             case 1:
+                for (int i = x; i <= x+length ; i++) {
+                    currentShips.add(coord[y][i]);
+                }
                 break;
             case 2:
+                for (int i = y; i <= y+length ; i++) {
+                    currentShips.add(coord[i][x]);
+                }
                 break;
             case 3:
+                for (int i = x-length; i <= x; i++) {
+                    currentShips.add(coord[y][i]);
+                }
                 break;
             default:
                 break;
         }
         for (Coordinate co :currentShips) co.setBackground(Color.BLUE);
-        System.out.println(currentShips.size());
     }
 
     private  void undoPreview(){
@@ -76,20 +130,25 @@ public class PlayerBoard extends ShipBoard implements KeyListener,MouseListener 
     public void mouseReleased(MouseEvent e) {
     }
 
+    private void placeable(){
+        int shipLength =  super.mainScreen.shipPlacement.getSelectedShipLength();
+        int x=((Coordinate)mouse.getSource()).getCoordX(),y=((Coordinate)mouse.getSource()).getCoordY();
+        if (super.mainScreen.shipPlacement.isShipSelected()) {
+            if (valid.isPlaceable(rotation,shipLength,getBoard(),y,x)) {
+                preview(shipLength,y,x);
+            } else {
+                ((Coordinate) mouse.getSource()).setBackground(Color.red);
+            }
+        }
+    }
+
     @Override
     public void mouseEntered(MouseEvent e) {
         int gameState = 0;
-        int shipLength =  super.mainScreen.shipPlacement.getSelectedShipLength();
-        int x=((Coordinate)e.getSource()).getCoordX(),y=((Coordinate)e.getSource()).getCoordY();
         switch (gameState) {
             case 0: // game is being set up
-                if (super.mainScreen.shipPlacement.isShipSelected()) {
-                    if (valid.isPlaceable(rotation,shipLength,getBoard(),y,x)) {
-                        preview(shipLength,y,x);
-                    } else {
-                        ((Coordinate) e.getSource()).setBackground(Color.red);
-                    }
-                }
+                mouse = e;
+                placeable();
                 break;
             case 1:
                 break;
@@ -100,8 +159,7 @@ public class PlayerBoard extends ShipBoard implements KeyListener,MouseListener 
 
     @Override
     public void mouseExited(MouseEvent e) {
-        for (Coordinate co :currentShips) co.setBackground(Color.lightGray);
-        currentShips.removeAll(currentShips);
+        clearPreview();
     }
 
     @Override
@@ -114,13 +172,4 @@ public class PlayerBoard extends ShipBoard implements KeyListener,MouseListener 
         coord.setVisible(true);
         return coord;
     }
-
-    @Override
-    public void keyTyped(KeyEvent e) { }
-
-    @Override
-    public void keyPressed(KeyEvent e) { }
-
-    @Override
-    public void keyReleased(KeyEvent e) { }
 }

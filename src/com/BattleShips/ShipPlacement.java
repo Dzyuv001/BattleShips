@@ -22,11 +22,11 @@ public class ShipPlacement implements MouseListener {
     }
 
     private void initTitle(){
-
         lblAreaTitle.setPreferredSize(new Dimension((int)(mainScreen.getWidth()*0.6),20));
         lblAreaTitle.setText("Place your ships");
         lblAreaTitle.doLayout();
         shipArea.add(lblAreaTitle);
+
     }
 
     private void initLabel(){

@@ -17,9 +17,11 @@ public class MainScreen extends JFrame {
         add(ms, BorderLayout.CENTER);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.pack();
+       // setFocusable(true);
         setSize(700, 700);
-        setVisible(true);
         initSide();
+        setVisible(true);
+        setFocusable(true);
     }
 
     public JPanel getMS(){ return ms; }
