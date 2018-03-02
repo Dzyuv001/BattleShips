@@ -26,7 +26,6 @@ public class ShipPlacement implements MouseListener {
         lblAreaTitle.setText("Place your ships");
         lblAreaTitle.doLayout();
         shipArea.add(lblAreaTitle);
-
     }
 
     private void initLabel(){

@@ -51,7 +51,7 @@ public class Validation { // class will be used to validate inputs
         if(maxY==10)maxY=9;
     }
 
-    private boolean isClear(){// loop though every coordiate and check if its taken
+    public boolean isClear(){// loop though every coordiate and check if its taken
         for (int i = minY; i < maxY; i++) {
             for (int j = minX; j < maxX; j++) {
                 if(shipArea[i][j] != "n"){

@@ -6,21 +6,20 @@ import java.awt.event.*;
 import java.util.ArrayList;
 
 public class PlayerBoard extends ShipBoard implements MouseListener {
-    private int rotation=3; // stores the rotation of the ship
+    private int rotation=0; // stores the rotation of the ship
     private ArrayList<Coordinate> currentShips = new ArrayList<>();
     private MouseEvent mouse;
+
+    private int currentX , currentY;
 
     public PlayerBoard(MainScreen ms) {
         super(ms);
         setFocusable(true);
         addKeyBinding(this,KeyEvent.VK_E,"clockwise", (eve) -> {
             roation(1);
-            System.out.print("turned turned right " + rotation);
         });
         addKeyBinding(this,KeyEvent.VK_Q,"anticlockwise", (eve) -> {
-
             roation(-1);
-            System.out.print("turned left " + rotation);
         });
     }
 
@@ -69,61 +68,77 @@ public class PlayerBoard extends ShipBoard implements MouseListener {
         System.out.println("the button was clicked");
     }
 
-    private void preview(int length ,int y , int x){
+    private void preview(int length ){
+        Color shipCol = Color.BLUE;
         clearPreview();
         int min=0,max=0;
         switch (rotation){
             case 0:
-                for (int i = y-length; i <= y ; i++) {
-                    currentShips.add(coord[i][x]);
+                shipCol=shipFits(0,currentY-length);
+                max = currentY;
+                if (shipCol == Color.BLUE){
+                    min = currentY-length;
+                }else {
+                    min= 0;
+                }
+                for (int i = min; i <= max ; i++) {
+                    currentShips.add(coord[i][currentX]);
                 }
                 break;
             case 1:
-                for (int i = x; i <= x+length ; i++) {
-                    currentShips.add(coord[y][i]);
+                shipCol=shipFits(currentX+length,9);
+                min = currentX;
+                if (shipCol == Color.BLUE){
+                    max = currentX+length;
+                }else {
+                    max = 9;
+                }
+                for (int i = min; i <= max ; i++) {
+                    currentShips.add(coord[currentY][i]);
                 }
                 break;
             case 2:
-                for (int i = y; i <= y+length ; i++) {
-                    currentShips.add(coord[i][x]);
+                shipCol=shipFits(currentY+length,9);
+                min = currentY;
+                if (shipCol == Color.BLUE){
+                    max = currentY+length;
+                }else {
+                    max = 9;
+                }
+                for (int i = min; i <= max ; i++) {
+                    currentShips.add(coord[i][currentX]);
                 }
                 break;
             case 3:
-                for (int i = x-length; i <= x; i++) {
-                    currentShips.add(coord[y][i]);
+                shipCol=shipFits(0,currentX-length);
+                max = currentX;
+                if (shipCol == Color.BLUE){
+                    min = currentX-length;
+                }else {
+                    min= 0;
+                }
+                for (int i = min; i <= max; i++) {
+                    currentShips.add(coord[currentY][i]);
                 }
                 break;
             default:
                 break;
         }
-        for (Coordinate co :currentShips) co.setBackground(Color.BLUE);
+        for (Coordinate co :currentShips) co.setBackground(shipCol);
     }
 
-    private  void undoPreview(){
-        int min=0,max=0;
-        switch (rotation){
-            case 0:
-                break;
-            case 1:
-                break;
-            case 2:
-                break;
-            case 3:
-                break;
-            default:
-                break;
+    private Color shipFits(int val1 ,int val2){
+        Color col = Color.red;
+        if(val1<=val2){
+            col = Color.BLUE;
         }
-        for (Coordinate co :currentShips) {
-            co.setBackground(Color.LIGHT_GRAY);
-            System.out.println("The coorids are " + co.getCoordY() + " and " + co.getCoordX());
-        }
-        currentShips.removeAll(currentShips);
+        System.out.println("this ran" + col);
+        return col;
     }
 
     @Override
     public void mousePressed(MouseEvent e) {
         ((JButton)e.getSource()).setBackground(Color.red);
-        System.out.println("mouse Pressed");
     }
 
     @Override
@@ -132,13 +147,11 @@ public class PlayerBoard extends ShipBoard implements MouseListener {
 
     private void placeable(){
         int shipLength =  super.mainScreen.shipPlacement.getSelectedShipLength();
-        int x=((Coordinate)mouse.getSource()).getCoordX(),y=((Coordinate)mouse.getSource()).getCoordY();
+        currentX=((Coordinate)mouse.getSource()).getCoordX();
+        currentY=((Coordinate)mouse.getSource()).getCoordY();
         if (super.mainScreen.shipPlacement.isShipSelected()) {
-            if (valid.isPlaceable(rotation,shipLength,getBoard(),y,x)) {
-                preview(shipLength,y,x);
-            } else {
-                ((Coordinate) mouse.getSource()).setBackground(Color.red);
-            }
+            preview(shipLength);
+//            if (valid.isPlaceable(rotation,shipLength,getBoard(),currentY,currentX)) {
         }
     }
 
@@ -158,9 +171,7 @@ public class PlayerBoard extends ShipBoard implements MouseListener {
     }
 
     @Override
-    public void mouseExited(MouseEvent e) {
-        clearPreview();
-    }
+    public void mouseExited(MouseEvent e) { }
 
     @Override
     public Coordinate initBattleShipCoord(int y, int x){ // sets up buttons
