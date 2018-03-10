@@ -12,11 +12,6 @@ public class Coordinate extends JButton{
      this.state = state;
     }
 
-//    public JButton getBtn() {
-//        return btn;
-//    }
-//public void setCoordsXY(int)
-
     public String getState() { return state; }
     public int getCoordX(){ return x; }
     public int getCoordY(){ return y; }

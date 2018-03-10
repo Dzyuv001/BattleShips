@@ -31,13 +31,11 @@ public class PlayerBoard extends ShipBoard implements MouseListener {
             @Override
             public void actionPerformed(ActionEvent e) {
                 act.actionPerformed(e);
-                System.out.println("hello world");
             }
         });
     }
 
     private void roation(int rot){// changes the rotation value
-        System.out.println(rot);
         if (rot==1){
             if (rotation==3){
                 rotation=0;
@@ -65,7 +63,6 @@ public class PlayerBoard extends ShipBoard implements MouseListener {
     @Override
     public void mouseClicked(MouseEvent e) {
         ((JButton)e.getSource()).setBackground(Color.GREEN);
-        System.out.println("the button was clicked");
     }
 
     private void preview(int length ){
@@ -132,7 +129,6 @@ public class PlayerBoard extends ShipBoard implements MouseListener {
         if(val1<=val2){
             col = Color.BLUE;
         }
-        System.out.println("this ran" + col);
         return col;
     }
 
@@ -146,12 +142,14 @@ public class PlayerBoard extends ShipBoard implements MouseListener {
     }
 
     private void placeable(){
-        int shipLength =  super.mainScreen.shipPlacement.getSelectedShipLength();
-        currentX=((Coordinate)mouse.getSource()).getCoordX();
-        currentY=((Coordinate)mouse.getSource()).getCoordY();
-        if (super.mainScreen.shipPlacement.isShipSelected()) {
-            preview(shipLength);
+        if (this.mainScreen.shipPlacement.isShipSelected()) {
+            int shipLength = super.mainScreen.shipPlacement.getSelectedShipLength();
+            currentX = ((Coordinate) mouse.getSource()).getCoordX();
+            currentY = ((Coordinate) mouse.getSource()).getCoordY();
+            if (super.mainScreen.shipPlacement.isShipSelected()) {
+                preview(shipLength);
 //            if (valid.isPlaceable(rotation,shipLength,getBoard(),currentY,currentX)) {
+            }
         }
     }
 
