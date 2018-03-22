@@ -4,7 +4,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.util.List;
 
 
 public class ShipPlacement implements MouseListener {
@@ -36,6 +35,7 @@ public class ShipPlacement implements MouseListener {
             ships[i].setPreferredSize(new Dimension(60*lengths[i],20));
             shipArea.add(ships[i]);
             ships[i].addMouseListener(this);
+            ships[i].putClientProperty("int", i);
         }
     }
 
@@ -44,10 +44,16 @@ public class ShipPlacement implements MouseListener {
     public int getSelectedShipLength() {
         return (selectedShip.getWidth()/60)-1;
     }
+public int getShipIndex(){
+        return (int)selectedShip.getClientProperty("int");
+}
+
+
 
     @Override
     public void mouseClicked(MouseEvent e) {
         selectedShip = ((JButton)e.getSource());
+        System.out.println(((JButton) e.getSource()).getClientProperty("int"));
         isShipSelected = true;
     }
 

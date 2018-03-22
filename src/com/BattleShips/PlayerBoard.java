@@ -10,6 +10,9 @@ public class PlayerBoard extends ShipBoard implements MouseListener {
     private ArrayList<Coordinate> currentShips = new ArrayList<>();
     private MouseEvent mouse;
 
+
+    private boolean shipValid=false; // the ship is valid
+
     private int currentX , currentY;
 
     public PlayerBoard(MainScreen ms) {
@@ -122,6 +125,7 @@ public class PlayerBoard extends ShipBoard implements MouseListener {
                 break;
         }
         for (Coordinate co :currentShips) co.setBackground(shipCol);
+        shipValid = shipCol == Color.BLUE;
     }
 
     private Color shipFits(int val1 ,int val2){
@@ -134,7 +138,24 @@ public class PlayerBoard extends ShipBoard implements MouseListener {
 
     @Override
     public void mousePressed(MouseEvent e) {
-        ((JButton)e.getSource()).setBackground(Color.red);
+        int gameState =0;
+        int shipIndex = this.mainScreen.shipPlacement.getShipIndex();
+        Coordinate curCoord = ((Coordinate) e.getSource());
+        switch (gameState){
+            case 0:
+                if (shipValid && this.mainScreen.shipPlacement.isShipSelected()){
+                    super.ships[shipIndex] = new Ship(curCoord.getCoordX(),
+                            curCoord.getCoordY(), rotation, super.mainScreen.shipPlacement.getSelectedShipLength());
+                    for (int i = 0; i < super.mainScreen.shipPlacement.getSelectedShipLength()-1; i++) {
+                        curCoord.navalSetUp(shipIndex,i);
+                    }
+                }
+                break;
+            case 1:
+                break;
+            default:
+                break;
+        }
     }
 
     @Override

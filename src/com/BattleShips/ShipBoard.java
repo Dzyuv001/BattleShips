@@ -2,7 +2,7 @@ package com.BattleShips;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.List;
+import java.util.LinkedList;
 
 public abstract class ShipBoard extends JPanel {
     MainScreen mainScreen;
@@ -11,7 +11,7 @@ public abstract class ShipBoard extends JPanel {
 
     public Coordinate[][] coord = new Coordinate[10][10];
     public Validation valid = new Validation();
-    private List<Ship> ship;
+    public Ship ships[] = new Ship[10];
 
     public ShipBoard(MainScreen ms){
         mainScreen = ms;
